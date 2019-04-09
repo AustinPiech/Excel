@@ -1,0 +1,17 @@
+Sub DeleteDeadNames2()
+   Dim nName As Name
+   Dim lCount As Long
+   
+   With ActiveWorkbook
+      For lCount = .Names.Count To 1 Step -1
+         If lCount Mod 1000 = 0 Then
+            Debug.Print lCount
+            .Save
+            DoEvents
+         End If
+        If InStr(1, .Names(lCount).RefersTo, "#REF!") > 0 Then
+            .Names(lCount).Delete
+        End If
+      Next lCount
+   End With
+End Sub
